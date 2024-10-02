@@ -41,11 +41,12 @@ def plot_educ_means(data: list[float]):
     coef, intercept = np.polyfit(x, data, 1)
     regression_line = coef * x + intercept
 
-    print(intercept)
+    print(f'Slope - {coef}, Intercept - {intercept}')
 
     plt.plot(x, regression_line, color="red", alpha=0.7, label=f"Regression line (Coef - {round(coef, 3)})")
     
     plt.grid(True)
+    plt.title("Conditional sample means with linear regression")
     plt.legend()
 
     plt.ylabel("Log weekly earnings, $")
@@ -61,6 +62,9 @@ def get_statistics(data: pd.Series):
     return mean_wage, median_wage, skewness_wage
 
 def get_mean_for_education(data: pd.DataFrame, education: int) -> float:
+    """
+    Returns mean value of lwklywge column for given education year
+    """
     filtered_data = data[data["educ"] == education]
 
     return filtered_data["lwklywge"].mean()
@@ -73,7 +77,7 @@ def main():
     exp_wages = np.exp(data["lwklywge"])
     data["wage"] = exp_wages
 
-    #1a and 1b
+    #Answers to 1.a and 1.b (wage column is exp., lwklywge is log)
     plot_wages(data["lwklywge"], data["wage"])
 
     wage_attrs = ["wage", "lwklywge"]
@@ -84,12 +88,12 @@ def main():
             print(f"Sample Median of Wage ({wage_attr}): {median_wage:.2f}")
             print(f"Coefficient of Skewness of Wage ({wage_attr}): {skewness_wage:.2f}")
 
-    #1c
+    # Answer to 1.c
     data_16 = data[data["educ"] == 16]
     mean_wage_16 = data_16["wage"].mean()
     print(f"Sample Mean of Wage for people with 16 years of education: {mean_wage_16: .2f}")
 
-    #1d
+    # Answer to 1.d
     unique_education_y = data["educ"].unique()
     
     education_means = []
