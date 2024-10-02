@@ -28,10 +28,10 @@ def plot_wages(wages: pd.Series, exp_wages: pd.Series) -> None:
     axes[1].set_title('Weekly wage (exponential)')
     axes[1].grid(True)
     axes[1].set_xlabel('')
+    
+    plt.show()
 
     plt.clf()
-    
-    #plt.show()
 
 def plot_educ_means(data: list[float]):
     x = np.arange(len(data))
