@@ -20,16 +20,16 @@ def plot_wages(wages: pd.Series, exp_wages: pd.Series) -> None:
     sns.kdeplot(wages, bw_adjust=0.5, ax=axes[0])
     axes[0].set_title('Weekly Wage (log)')
     axes[0].grid(True)
-    axes[1].set_xlabel('')
+    axes[0].set_xlabel('Log, $')
 
     # plot for exp wage
     axes[1].hist(exp_wages, bins=20, density=True, alpha=0.2, color='blue')
     sns.kdeplot(exp_wages, bw_adjust=0.5, ax=axes[1])
     axes[1].set_title('Weekly wage (exponential)')
     axes[1].grid(True)
-    axes[1].set_xlabel('')
+    axes[1].set_xlabel('Exponential, $')
     
-    plt.show()
+    plt.savefig("wages_density.png")
 
     plt.clf()
 
@@ -51,7 +51,7 @@ def plot_educ_means(data: list[float]):
     plt.ylabel("Log weekly earnings, $")
     plt.xlabel("Years of education")
 
-    plt.show()
+    plt.savefig("educ_means_lr.png")
 
 def get_statistics(data: pd.Series):
     mean_wage = data.mean()
