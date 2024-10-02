@@ -3,9 +3,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-from scipy import stats
 from scipy.stats import skew
-from sklearn.linear_model import LinearRegression
 
 def get_data(path: str) -> pd.DataFrame:
   data = pd.read_csv(path)
