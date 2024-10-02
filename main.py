@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
@@ -33,11 +34,19 @@ def plot_wages(wages: pd.Series, exp_wages: pd.Series) -> None:
     #plt.show()
 
 def plot_educ_means(data: list[float]):
-    model = LinearRegression()
-    model.fit([data], range(len(data)))
-    pass
+    x = np.arange(len(data))
+    
+    plt.plot(x, data, color="black", marker="o", label="Means")
+    
+    coef, intercept = np.polyfit(x, data, 1)
+    regression_line = coef * x + intercept
+
+    print(intercept)
+
+    plt.plot(x, regression_line, color="red", alpha=0.7, label=f"Regression line (Coef - {round(coef, 3)})")
     
     plt.grid(True)
+    plt.legend()
 
     plt.ylabel("Log weekly earnings, $")
     plt.xlabel("Years of education")
@@ -57,7 +66,7 @@ def get_mean_for_education(data: pd.DataFrame, education: int) -> float:
     return filtered_data["lwklywge"].mean()
 
 def main():
-    data = get_data("Assig1.csv")
+    data = get_data(Path(__file__).parent / "Assig1.csv")
 
     print(data.head())
 
