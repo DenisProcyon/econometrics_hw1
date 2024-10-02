@@ -73,6 +73,7 @@ def main():
     exp_wages = np.exp(data["lwklywge"])
     data["wage"] = exp_wages
 
+    #1a and 1b
     plot_wages(data["lwklywge"], data["wage"])
 
     wage_attrs = ["wage", "lwklywge"]
@@ -83,6 +84,12 @@ def main():
             print(f"Sample Median of Wage ({wage_attr}): {median_wage:.2f}")
             print(f"Coefficient of Skewness of Wage ({wage_attr}): {skewness_wage:.2f}")
 
+    #1c
+    data_16 = data[data["educ"] == 16]
+    mean_wage_16 = data_16["wage"].mean()
+    print(f"Sample Mean of Wage for people with 16 years of education: {mean_wage_16: .2f}")
+
+    #1d
     unique_education_y = data["educ"].unique()
     
     education_means = []
@@ -90,6 +97,8 @@ def main():
        education_means.append(get_mean_for_education(data=data, education=education))
 
     plot_educ_means(data=education_means)
+
+
 
 if __name__ == "__main__":
   main()
