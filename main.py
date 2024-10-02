@@ -75,11 +75,13 @@ def main():
 
     plot_wages(data["lwklywge"], data["wage"])
 
-    mean_wage, median_wage, skewness_wage = get_statistics(data=data["lwklywge"])
+    wage_attrs = ["wage", "lwklywge"]
+    for wage_attr in wage_attrs:
+            mean_wage, median_wage, skewness_wage = get_statistics(data=data[wage_attr])
 
-    print(f"Sample Mean of Wage: {mean_wage:.2f}")
-    print(f"Sample Median of Wage: {median_wage:.2f}")
-    print(f"Coefficient of Skewness of Wage: {skewness_wage:.2f}")
+            print(f"Sample Mean of Wage ({wage_attr}): {mean_wage:.2f}")
+            print(f"Sample Median of Wage ({wage_attr}): {median_wage:.2f}")
+            print(f"Coefficient of Skewness of Wage ({wage_attr}): {skewness_wage:.2f}")
 
     unique_education_y = data["educ"].unique()
     
