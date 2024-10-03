@@ -31,7 +31,8 @@ def plot_wages(wages: pd.Series, exp_wages: pd.Series) -> None:
 
     plt.clf()
 
-def plot_educ_means(data: list[float]):
+def plot_educ_means(data: list[float], reg: bool = False):
+    "If reg attr is True, will also plot linear regression in addition to means"
     x = np.arange(len(data))
     
     plt.plot(x, data, color="black", marker="o", label="Means")
@@ -41,7 +42,8 @@ def plot_educ_means(data: list[float]):
 
     print(f'Slope - {coef}, Intercept - {intercept}')
 
-    plt.plot(x, regression_line, color="red", alpha=0.7, label=f"Regression line (Coef - {round(coef, 3)})")
+    if reg:
+        plt.plot(x, regression_line, color="red", alpha=0.7, label=f"Regression line (Coef - {round(coef, 3)})")
     
     plt.grid(True)
     plt.title("Conditional sample means with linear regression")
@@ -50,7 +52,9 @@ def plot_educ_means(data: list[float]):
     plt.ylabel("Log weekly earnings, $")
     plt.xlabel("Years of education")
 
-    plt.savefig("educ_means_lr.png")
+    fign = "educ_means_lr.png" if reg else "educ_means.png"
+
+    plt.savefig(fign)
 
 def get_statistics(data: pd.Series):
     mean_wage = data.mean()
@@ -98,7 +102,7 @@ def main():
     for education in sorted(unique_education_y):
        education_means.append(get_mean_for_education(data=data, education=education))
 
-    plot_educ_means(data=education_means)
+    plot_educ_means(data=education_means, reg=True)
 
 
 
